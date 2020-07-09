@@ -17,6 +17,14 @@ public class UserAdapter extends AbstractListModel<String> {
         return users.size();
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     @Override
     public String getElementAt(int i) {
         User user = users.get(i);

@@ -12,7 +12,7 @@ public class UserRepository implements Repository<User> {
     private static int id = 1;
 
     static {
-        User user = new User(1, "vovantam", "123", "vovantam.dev", "Vo Van Tam", "Quang Tri", 20);
+        User user = new User();
         userMap.put(id++, user);
     }
 
