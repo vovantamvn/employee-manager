@@ -1,11 +1,13 @@
 package com.example.demo;
 
-import javax.swing.*;
+import com.example.demo.view.admin.AdminFrame;
 
 public class Application {
 
-    public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        new AdminFrame().setVisible(true);
     }
 }

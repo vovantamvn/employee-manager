@@ -19,12 +19,15 @@ public class User {
         this.role = role;
     }
 
-    public User(int role, String username, String password, String email) {
+    public User(int role, String username, String password, String email, String name, String address, int age) {
         assert (role > 0 && role < 4) : "Role is not valid";
-        this.role = role;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.name = name;
+        this.address = address;
+        this.age = age;
+        this.role = role;
     }
 
     public int getId() {
