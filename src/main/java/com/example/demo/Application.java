@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.model.DayOff;
 import com.example.demo.model.User;
+import com.example.demo.repository.DayOffRepositoryImp;
 import com.example.demo.repository.UserRepositoryImp;
 import com.example.demo.view.admin.AdminFrame;
 
@@ -12,22 +14,13 @@ public class Application {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        User user = new User();
-        user.setUsername("vovantam");
-        user.setPassword("123");
-        user.setName("Vo Van Tam");
-        user.setEmail("vovantam@gmail.com");
-        user.setAddress("Quang Tri");
-        user.setRole(1);
-        user.setAge(25);
-        user.setDob(LocalDate.now());
-        user.setDepartment("Nhan Su");
-        user.setGender(1);
+        DayOff dayOff = new DayOff();
+        dayOff.setComment("Con mẹ mày nha");
+        dayOff.setDate(LocalDate.now());
+        dayOff.setStatus(DayOff.Status.REFUSE);
+        dayOff.setNumberDay(6.5f);
 
-        //UserRepositoryImp repositoryImp = new UserRepositoryImp();
-        //repositoryImp.update(3, user);
-        //System.out.println(repositoryImp.getAll());
-        AdminFrame adminFrame = new AdminFrame();
-        adminFrame.setVisible(true);
+        DayOffRepositoryImp repositoryImp = new DayOffRepositoryImp();
+        repositoryImp.deleteById(1002);
     }
 }

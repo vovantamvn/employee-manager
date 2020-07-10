@@ -10,6 +10,7 @@ import com.example.demo.repository.Repository;
 import com.example.demo.repository.UserRepositoryImp;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import java.util.List;
 
 /**
  *
@@ -30,7 +31,7 @@ public class AdminFrame extends javax.swing.JFrame {
         controller = new AdminController(repository);
         adapter = new UserAdapter(controller.getAllUser());
         System.out.println(controller.getAllUser());
-        listUser.setModel(adapter);
+        listUser.setModel(adapter);    
     }
 
     /**
@@ -330,6 +331,8 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     private void refeshData() {
+        List<User> users = controller.getAllUser();
+        adapter.setUsers(users);
         
     }
     

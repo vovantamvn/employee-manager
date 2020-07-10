@@ -27,7 +27,7 @@ public class UserRepositoryImp implements Repository<User> {
     public User create(User obj) {
         //INSERT users values('username', 'password',
         // 'role', name, age, gender, dob, deparment, adress, email);
-        String query = String.format("INSERT users VALUES('%s', '%s', %d, '%s', %d, %d, '%s', '%s', '%s', '%s')",
+        String query = String.format("INSERT users VALUES('%s', '%s', %d, N'%s', %d, %d, '%s', N'%s', N'%s', '%s')",
                 obj.getUsername(),
                 obj.getPassword(),
                 obj.getRole(),
@@ -57,12 +57,12 @@ public class UserRepositoryImp implements Repository<User> {
                 "SET username = '%s',\n" +
                 "    password = '%s',\n" +
                 "    role = %d,\n" +
-                "    name = '%s',\n" +
+                "    name = N'%s',\n" +
                 "    age = %d,\n" +
                 "    gender = %d,\n" +
                 "    dob = '%s',\n" +
-                "    department = '%s',\n" +
-                "    address = '%s',\n" +
+                "    department = N'%s',\n" +
+                "    address = N'%s',\n" +
                 "    email = '%s'\n" +
                 "WHERE id = %d;",
                 obj.getUsername(),
