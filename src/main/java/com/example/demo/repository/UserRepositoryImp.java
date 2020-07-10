@@ -45,6 +45,8 @@ public class UserRepositoryImp implements Repository<User> {
             throwables.printStackTrace();
             return null;
         }
+        
+        System.out.println(query);
 
         return obj;
     }

@@ -6,7 +6,10 @@
 package com.example.demo.view.admin;
 
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.Repository;
+import com.example.demo.repository.UserRepositoryImp;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,10 +25,12 @@ public class AdminFrame extends javax.swing.JFrame {
 
     public AdminFrame() {
         initComponents();
-        UserRepository repository = new UserRepository();
+        Repository<User> repository = new UserRepositoryImp();
+        
         controller = new AdminController(repository);
         adapter = new UserAdapter(controller.getAllUser());
-        jList1.setModel(adapter);
+        System.out.println(controller.getAllUser());
+        listUser.setModel(adapter);
     }
 
     /**
@@ -49,11 +54,19 @@ public class AdminFrame extends javax.swing.JFrame {
         emailText = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         passwordText = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        createButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listUser = new javax.swing.JList<>();
+        jLabel7 = new javax.swing.JLabel();
+        departmentText = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        dobText = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        genderCombobox = new javax.swing.JComboBox<>();
+        roleCombobox = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,33 +82,47 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Mật khẩu");
 
-        jButton1.setText("Tạo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createButton.setText("Tạo");
+        createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cập nhật");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.setText("Cập nhật");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Xóa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setText("Xóa");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
-//        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-//            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-//            public int getSize() { return strings.length; }
-//            public String getElementAt(int i) { return strings[i]; }
-//        });
-        jScrollPane1.setViewportView(jList1);
+        listUser.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listUser);
+
+        jLabel7.setText("Bộ phận");
+
+        jLabel8.setText("Ngày sinh");
+
+        dobText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-mm-dd"))));
+
+        jLabel9.setText("Giới tính");
+
+        genderCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nữ", "Nam" }));
+
+        roleCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Quản lý", "Admin" }));
+
+        jLabel10.setText("Chức vụ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,34 +131,44 @@ public class AdminFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nameText)
-                            .addComponent(addressText)
-                            .addComponent(emailText, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ageText)
-                            .addComponent(usernameText)
-                            .addComponent(passwordText, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(createButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(nameText)
+                                    .addComponent(addressText)
+                                    .addComponent(emailText, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                    .addComponent(departmentText)
+                                    .addComponent(genderCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ageText)
+                                    .addComponent(usernameText)
+                                    .addComponent(passwordText, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                    .addComponent(dobText)
+                                    .addComponent(roleCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,9 +193,21 @@ public class AdminFrame extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(departmentText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(dobText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(genderCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roleCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createButton)
+                    .addComponent(updateButton)
+                    .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -167,35 +216,85 @@ public class AdminFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         createUser();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         updateUser();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         deleteUser();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private boolean checkData() {
+        if(usernameText.getText().equals(""))
+            return false;
+        
+        if(passwordText.getText().equals(""))
+            return false;
+        
+        if(nameText.getText().equals(""))
+            return false;
+        
+        return true;
+    }
+    
     private void createUser() {
+        if(!checkData()) {
+            JOptionPane.showMessageDialog(this, "Nhập đầy đủ các trường");
+            return;
+        }
+        
         User user = new User();
         user.setAddress(addressText.getText());
         user.setEmail(emailText.getText());
         user.setName(nameText.getText());
         user.setUsername(usernameText.getText());
         user.setPassword(passwordText.getText());
-
+        user.setDepartment(departmentText.getText());
+        
+        // Index = 0 => Nu
+        user.setGender(genderCombobox.getSelectedIndex());
+        
+        // Role
+        int role = roleCombobox.getSelectedIndex();
+        
+        if (role == 1) {
+            // Quan Ly
+            user.setRole(User.ROLE_MANAGER);
+        } else if(role == 2) {
+            // Admin
+            user.setRole(User.ROLE_ADMIN);
+        } else {
+            user.setRole(User.ROLE_EMPLOYEE);
+        }
+        
+        // Date of birth, Age
         try {
             int age = Integer.parseInt(ageText.getText());
             user.setAge(age);
         }catch (Exception ex){
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Tuổi phải là số nguyên");
+            return;
+        }
+        
+        try {
+            String date = dobText.getText();
+            LocalDate dob = LocalDate.parse(date);
+            user.setDob(dob);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Nhập ngày theo định dạng năm-tháng-ngày");
+            return;
         }
 
-        controller.createUser(user);
-        refeshData();
+        boolean result = controller.createUser(user);
+        if(result) {
+            JOptionPane.showMessageDialog(this, "Đã tạo thành công");
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã tạo thất bại");
+        }  
     }
 
     private void updateUser() {
@@ -203,21 +302,21 @@ public class AdminFrame extends javax.swing.JFrame {
             return;
         }
 
-        User user = new User();
-        user.setAddress(addressText.getText());
-        user.setEmail(emailText.getText());
-        user.setName(nameText.getText());
-        user.setUsername(usernameText.getText());
-        user.setPassword(passwordText.getText());
+//        User user = new User();
+//        user.setAddress(addressText.getText());
+//        user.setEmail(emailText.getText());
+//        user.setName(nameText.getText());
+//        user.setUsername(usernameText.getText());
+//        user.setPassword(passwordText.getText());
+//
+//        try {
+//            int age = Integer.parseInt(ageText.getText());
+//            user.setAge(age);
+//        }catch (Exception ex){
+//            ex.printStackTrace();
+//        }
 
-        try {
-            int age = Integer.parseInt(ageText.getText());
-            user.setAge(age);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
-        controller.updateUser(userChoise, user);
+        //controller.updateUser(userChoise, user);
         refeshData();
     }
 
@@ -231,29 +330,46 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     private void refeshData() {
-        adapter.setUsers(controller.getAllUser());
-        jList1.setModel(adapter);
-        repaint();
+        
+    }
+    
+    private void clearData() {
+        usernameText.setText("");
+        passwordText.setText("");
+        nameText.setText("");
+        addressText.setText("");
+        departmentText.setText("");
+        dobText.setText("");
+        ageText.setText("");
+        emailText.setText("");
     }
 
     private int userChoise = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTextField addressText;
+    private javax.swing.JTextField ageText;
+    private javax.swing.JButton createButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JTextField departmentText;
+    private javax.swing.JFormattedTextField dobText;
+    private javax.swing.JTextField emailText;
+    private javax.swing.JComboBox<String> genderCombobox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listUser;
     private javax.swing.JTextField nameText;
-    private javax.swing.JTextField ageText;
-    private javax.swing.JTextField addressText;
-    private javax.swing.JTextField usernameText;
-    private javax.swing.JTextField emailText;
     private javax.swing.JTextField passwordText;
+    private javax.swing.JComboBox<String> roleCombobox;
+    private javax.swing.JButton updateButton;
+    private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
 }

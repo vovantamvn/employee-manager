@@ -1,19 +1,20 @@
 package com.example.demo.view.admin;
 
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.Repository;
 
 import java.util.List;
 
 public class AdminController {
-    private final UserRepository repository;
+    private final Repository<User> repository;
 
-    public AdminController(UserRepository repository) {
+    public AdminController(Repository<User> repository) {
         this.repository = repository;
     }
 
-    public void createUser(User user) {
-        repository.create(user);
+    public boolean createUser(User user) {
+        User result = repository.create(user);
+        return result != null;
     }
 
     public void updateUser(int id, User user) {

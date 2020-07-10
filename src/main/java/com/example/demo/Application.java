@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepositoryImp;
+import com.example.demo.view.admin.AdminFrame;
 
 import java.time.LocalDate;
 
@@ -23,8 +24,10 @@ public class Application {
         user.setDepartment("Nhan Su");
         user.setGender(1);
 
-        UserRepositoryImp repositoryImp = new UserRepositoryImp();
+        //UserRepositoryImp repositoryImp = new UserRepositoryImp();
         //repositoryImp.update(3, user);
-        System.out.println(repositoryImp.getAll());
+        //System.out.println(repositoryImp.getAll());
+        AdminFrame adminFrame = new AdminFrame();
+        adminFrame.setVisible(true);
     }
 }
