@@ -14,13 +14,6 @@ public class Application {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        DayOff dayOff = new DayOff();
-        dayOff.setComment("Con mẹ mày nha");
-        dayOff.setDate(LocalDate.now());
-        dayOff.setStatus(DayOff.Status.REFUSE);
-        dayOff.setNumberDay(6.5f);
-
-        DayOffRepositoryImp repositoryImp = new DayOffRepositoryImp();
-        repositoryImp.deleteById(1002);
+        new AdminFrame().setVisible(true);
     }
 }

@@ -11,6 +11,8 @@ import com.example.demo.repository.UserRepositoryImp;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -23,15 +25,20 @@ public class AdminFrame extends javax.swing.JFrame {
      */
     private AdminController controller;
     private UserAdapter adapter;
+    private DefaultListModel<String> listModel;
 
     public AdminFrame() {
         initComponents();
         Repository<User> repository = new UserRepositoryImp();
         
         controller = new AdminController(repository);
-        adapter = new UserAdapter(controller.getAllUser());
-        System.out.println(controller.getAllUser());
-        listUser.setModel(adapter);    
+        listModel = new DefaultListModel<>();
+        listUser.setModel(listModel);
+        
+//        adapter = new UserAdapter(controller.getAllUser());
+//        System.out.println(controller.getAllUser());
+//        listUser.setModel(adapter);
+        refeshData();
     }
 
     /**
@@ -295,7 +302,9 @@ public class AdminFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Đã tạo thành công");
         } else {
             JOptionPane.showMessageDialog(this, "Đã tạo thất bại");
-        }  
+        } 
+        
+        refeshData();
     }
 
     private void updateUser() {
@@ -332,8 +341,32 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void refeshData() {
         List<User> users = controller.getAllUser();
-        adapter.setUsers(users);
+        listModel.clear();
         
+        String title = String.format("%-30s %-20s %-20s %-30s %-20s %-30s %-30s",
+                "Tên",
+                "Tuổi",
+                "Giới tính",
+                "Bộ phận",
+                "Ngày sinh",
+                "Email",
+                "Username");
+        listModel.add(0, title);
+        
+        for(int i=0; i<users.size(); i++) {
+            User user = users.get(i);
+            
+            String item = String.format("%-30s %-20d %-20s %-30s %-20s %-30s %-30s",
+                user.getName(),
+                user.getAge(),
+                (user.getGender() == 1)? "Nam" : "Nữ",
+                user.getDepartment(),
+                user.getDob().toString(),
+                user.getEmail(),
+                user.getUsername());
+            
+            listModel.add(i + 1, item);
+        }
     }
     
     private void clearData() {

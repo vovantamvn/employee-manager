@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class SQLServerConnectionProvideImp implements ConnectionProvide {
-    private String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=db_emplyee;user=sa;password=Abcd@1234";
+    private String connectionUrl = "jdbc:sqlserver://168.62.58.183:1433;databaseName=db_employee;user=sa;password=Abcd@1234";
 
     @Override
     public Connection getConnection() {

@@ -56,4 +56,15 @@ public class DayOff {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "DayOff{" +
+                "id=" + id +
+                ", date=" + date +
+                ", comment='" + comment + '\'' +
+                ", numberDay=" + numberDay +
+                ", status=" + status +
+                '}';
+    }
 }
