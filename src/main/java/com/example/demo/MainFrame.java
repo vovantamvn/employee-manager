@@ -16,11 +16,11 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        UserRepository userRepository = new UserRepository();
-        LoginController loginController = new LoginController(userRepository);
-        Login loginView = new Login(loginController);
-        loginView.setLocation(0, 100);
+        
+        //LoginController loginController = new LoginController(userRepository);
+        //Login loginView = new Login(loginController);
+        //loginView.setLocation(0, 100);
 
-        setContentPane(loginView);
+        //setContentPane(loginView);
     }
 }
