@@ -7,14 +7,13 @@ public class DayOff {
     private LocalDate date;
     private String comment;
     private float numberDay;
-    private Status status;
+    private int status;
 
-    public enum Status {
-        ALLOW, REFUSE, NULL
-    }
+    public static final int NULL = 0;
+    public static final int ALLOW = 1;
+    public static final int REFUSE = -1;
 
     public DayOff() {
-        status = Status.NULL;
     }
 
     public int getId() {
@@ -49,11 +48,11 @@ public class DayOff {
         this.numberDay = numberDay;
     }
 
-    public Status getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

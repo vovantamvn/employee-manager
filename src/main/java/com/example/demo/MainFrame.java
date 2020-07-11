@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.controller.LoginController;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.view.Login;
 
 import javax.swing.*;

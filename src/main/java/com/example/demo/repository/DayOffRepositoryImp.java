@@ -25,19 +25,12 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
 
     @Override
     public DayOff create(DayOff obj) {
-        String status = "null";
 
-        if (obj.getStatus() == DayOff.Status.ALLOW) {
-            status = "1";
-        } else if (obj.getStatus() == DayOff.Status.REFUSE) {
-            status = "0";
-        }
-
-        String query = String.format("INSERT day_off values('%s', %f, N'%s', %s);",
+        String query = String.format("INSERT day_off values('%s', %f, N'%s', %d);",
             obj.getDate().toString(),
             obj.getNumberDay(),
             obj.getComment(),
-            status
+            obj.getStatus()
         );
 
         try(Statement statement = connection.createStatement()) {
@@ -54,26 +47,19 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
 
     @Override
     public DayOff update(int id, DayOff obj) {
-        String status = "null";
-
-        if (obj.getStatus() == DayOff.Status.ALLOW) {
-            status = "1";
-        } else if (obj.getStatus() == DayOff.Status.REFUSE) {
-            status = "0";
-        }
 
         String query = String.format("UPDATE day_off\n" +
                 "SET\n" +
                 "    date = '%s',\n" +
                 "    number = %f,\n" +
                 "    comment = N'%s',\n" +
-                "    status = %s\n" +
+                "    status = %d\n" +
                 "WHERE\n" +
                 "    id = %d;",
                 obj.getDate().toString(),
                 obj.getNumberDay(),
                 obj.getComment(),
-                status,
+                obj.getStatus(),
                 id);
 
         try(Statement statement = connection.createStatement()) {
@@ -108,18 +94,7 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
             dayOff.setDate(LocalDate.parse(resultSet.getString(2)));
             dayOff.setNumberDay(resultSet.getFloat(3));
             dayOff.setComment(resultSet.getString(4));
-            dayOff.setStatus(DayOff.Status.NULL);
-
-            try {
-                int status = resultSet.getByte(5);
-                if (status == 0) {
-                    dayOff.setStatus(DayOff.Status.REFUSE);
-                } else {
-                    dayOff.setStatus(DayOff.Status.ALLOW);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            dayOff.setStatus(resultSet.getInt(5));
 
             return dayOff;
         } catch (Exception throwables) {
@@ -163,18 +138,7 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
                 dayOff.setDate(LocalDate.parse(resultSet.getString(2)));
                 dayOff.setNumberDay(resultSet.getFloat(3));
                 dayOff.setComment(resultSet.getString(4));
-                dayOff.setStatus(DayOff.Status.NULL);
-
-                try {;;
-                    int status = resultSet.getInt(5);
-                    if (status == 0) {
-                        dayOff.setStatus(DayOff.Status.REFUSE);
-                    } else {
-                        dayOff.setStatus(DayOff.Status.ALLOW);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                dayOff.setStatus(resultSet.getInt(5));
 
                 dayOffs.add(dayOff);
             }
