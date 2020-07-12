@@ -7,6 +7,7 @@ package com.example.demo;
 
 import com.example.demo.controller.LoginController;
 import com.example.demo.model.User;
+import com.example.demo.view.StaffFrame;
 import com.example.demo.view.admin.AdminFrame;
 import com.example.demo.view.manager.ManagerFrame;
 import javax.swing.JOptionPane;
@@ -115,6 +116,7 @@ public class LoginFrame extends javax.swing.JFrame {
         
         switch(user.getRole()){
             case User.ROLE_EMPLOYEE:
+                new StaffFrame(user).setVisible(true);
                 break;
               
             case User.ROLE_ADMIN:

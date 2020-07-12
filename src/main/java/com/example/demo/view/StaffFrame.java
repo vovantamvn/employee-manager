@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author luongle
  */
-public class StaffFom extends javax.swing.JFrame {
+public class StaffFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form staffFom
@@ -23,11 +23,12 @@ public class StaffFom extends javax.swing.JFrame {
    
     private User user;
     
-    public StaffFom(User user) {
+    public StaffFrame(User user) {
         initComponents();
         
         // Sua va cap nhat tren thang user nay
         // Coi cai demo k dung thi xoa di
+        // Class viet hoa len het
         this.user = user;
     }
 
