@@ -17,7 +17,7 @@ public class UserRepositoryImp implements Repository<User> {
     public UserRepositoryImp() {
         SQLServerConnectionProvideImp connectionProvideImp = new SQLServerConnectionProvideImp();
         connection = connectionProvideImp.getConnection();
-
+        
         if (connection == null) {
             throw new RuntimeException("SQL connection not must be null!");
         }

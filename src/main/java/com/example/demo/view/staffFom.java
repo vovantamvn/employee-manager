@@ -6,6 +6,9 @@
 package com.example.demo.view;
 
 import com.example.demo.controller.StaffController;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,8 +53,9 @@ public class staffFom extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        songaynghi = new javax.swing.JTextField();
+        ngaynghi = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,8 +95,15 @@ public class staffFom extends javax.swing.JFrame {
         jLabel12.setText("Tình trạng : ");
 
         jButton2.setText("Gửi đi ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Hủy bỏ");
+
+        jLabel13.setText("12ngày/năm");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,7 +156,8 @@ public class staffFom extends javax.swing.JFrame {
                                 .addComponent(tongsongaynghi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(songaydanghi))
-                            .addComponent(songaynghiconlai, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(songaynghiconlai, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(165, 165, 165)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -156,8 +168,8 @@ public class staffFom extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                                .addComponent(jTextField4)))
+                                .addComponent(songaynghi, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                .addComponent(ngaynghi)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(42, 42, 42))
         );
@@ -175,7 +187,8 @@ public class staffFom extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(pass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(tongsongaynghi))
+                    .addComponent(tongsongaynghi)
+                    .addComponent(jLabel13))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -193,11 +206,11 @@ public class staffFom extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ngaynghi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(songaynghi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
@@ -212,12 +225,26 @@ public class staffFom extends javax.swing.JFrame {
 
     private void thaydoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thaydoiActionPerformed
         // TODO add your handling code here:
-         StaffController controller = new StaffController();
+        StaffController controller = new StaffController();
         String p1 =pass1.getText().toString();
-         String p2 =pass2.getText().toString();
+        String p2 =pass2.getText().toString();
          controller.thaydoimatkhau(p1, p2);
         
     }//GEN-LAST:event_thaydoiActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        StaffController controller = new StaffController();
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        dateFormat.applyPattern("yyyy-mm-dd");
+        try {
+            Date ngay = (Date) dateFormat.parse(ngaynghi.getText().toString());
+            controller.dexuatnghi(ngay);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Bạn nhập không đúng định dạng");
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,6 +288,7 @@ public class staffFom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -269,11 +297,11 @@ public class staffFom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField ngaynghi;
     private javax.swing.JTextField pass1;
     private javax.swing.JTextField pass2;
     private javax.swing.JLabel songaydanghi;
+    private javax.swing.JTextField songaynghi;
     private javax.swing.JLabel songaynghiconlai;
     private javax.swing.JButton thaydoi;
     private javax.swing.JLabel tongsongaynghi;
