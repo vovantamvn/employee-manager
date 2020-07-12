@@ -52,7 +52,7 @@ public class UserRepositoryImp implements Repository<User> {
     }
 
     @Override
-    public User update(int id, User obj) {
+    public boolean update(int id, User obj) {
         String query = String.format("UPDATE users\n" +
                 "SET username = '%s',\n" +
                 "    password = '%s',\n" +
@@ -78,13 +78,12 @@ public class UserRepositoryImp implements Repository<User> {
                 id);
 
         try(Statement statement = connection.createStatement()) {
-            statement.execute(query);
+            return statement.executeUpdate(query) > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return null;
         }
 
-        return obj;
+        return false;
     }
 
     @Override

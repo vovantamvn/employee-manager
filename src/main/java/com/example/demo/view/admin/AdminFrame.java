@@ -11,8 +11,6 @@ import com.example.demo.repository.UserRepositoryImp;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,7 +26,6 @@ public class AdminFrame extends javax.swing.JFrame {
      * Creates new form AdminFrame
      */
     private AdminController controller;
-    private UserAdapter adapter;
     private DefaultTableModel tableModel;
     private int indexSelected = 0;
     private int idSelected = 0;

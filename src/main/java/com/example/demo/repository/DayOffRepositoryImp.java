@@ -40,13 +40,13 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
             return null;
         }
 
-        System.out.println(query);
+        //System.out.println(query);
 
         return obj;
     }
 
     @Override
-    public DayOff update(int id, DayOff obj) {
+    public boolean update(int id, DayOff obj) {
 
         String query = String.format("UPDATE day_off\n" +
                 "SET\n" +
@@ -63,15 +63,12 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
                 id);
 
         try(Statement statement = connection.createStatement()) {
-            statement.execute(query);
+            return statement.executeUpdate(query) > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return null;
         }
 
-        System.out.println(query);
-
-        return obj;
+        return false;
     }
 
     @Override
