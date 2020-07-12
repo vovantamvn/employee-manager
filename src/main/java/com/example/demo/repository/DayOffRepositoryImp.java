@@ -23,6 +23,10 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
         }
     }
 
+    public DayOffRepositoryImp(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public DayOff create(DayOff obj) {
 

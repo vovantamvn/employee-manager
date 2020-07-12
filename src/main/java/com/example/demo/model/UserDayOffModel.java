@@ -16,6 +16,7 @@ public class UserDayOffModel {
     private String name;
     private LocalDate date;
     private float numberDayOff;
+    private String comment;
 
     public UserDayOffModel() {
     }
@@ -50,6 +51,14 @@ public class UserDayOffModel {
 
     public void setNumberDayOff(float numberDayOff) {
         this.numberDayOff = numberDayOff;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
     
     

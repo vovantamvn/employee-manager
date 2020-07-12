@@ -5,6 +5,7 @@
  */
 package com.example.demo.controller;
 
+import com.example.demo.RepositoryProvide;
 import com.example.demo.model.DayOff;
 import com.example.demo.model.User;
 import com.example.demo.model.UserDayOff;
@@ -26,9 +27,9 @@ public class ViewHistoryOfStaffController {
     private Repository<UserDayOff> userDayOffRepository;
     
     public ViewHistoryOfStaffController() {
-        userRepository = new UserRepositoryImp();
-        dayOffRepository = new DayOffRepositoryImp();
-        userDayOffRepository = new UserDayOffRepositoryImp();
+        userRepository = RepositoryProvide.getUserRepository();
+        dayOffRepository = RepositoryProvide.getDayOffRepository();
+        userDayOffRepository = RepositoryProvide.getUserDayOffRepository();
     }
     
     public List<UserDayOffModel> getStaffDayOffs() {
@@ -49,11 +50,21 @@ public class ViewHistoryOfStaffController {
             model.setName(user.getName());
             model.setNumberDayOff(dayOff.getNumberDay());
             model.setDate(dayOff.getDate());
+            model.setComment(dayOff.getComment());
             
             models.add(model);
         }
         
         return models;
+    }
+
+    public void sendMessager(int id, String messenger) {
+        UserDayOff userDayOff = userDayOffRepository.findById(id);
+        int dayOffId = userDayOff.getDayOffId();
+        DayOff dayOff = dayOffRepository.findById(dayOffId);
+        
+        dayOff.setComment(messenger);
+        dayOffRepository.update(dayOffId, dayOff);
     }
     
 }

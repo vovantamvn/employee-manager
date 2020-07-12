@@ -23,6 +23,10 @@ public class UserRepositoryImp implements Repository<User> {
         }
     }
 
+    public UserRepositoryImp(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public User create(User obj) {
         //INSERT users values('username', 'password',

@@ -30,6 +30,10 @@ public class UserDayOffRepositoryImp implements Repository<UserDayOff>{
         }
     }
 
+    public UserDayOffRepositoryImp(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public UserDayOff create(UserDayOff obj) {
         String query = String.format("INSERT user_day_off VALUES(%d, %d);", obj.getUserId(), obj.getDayOffId());

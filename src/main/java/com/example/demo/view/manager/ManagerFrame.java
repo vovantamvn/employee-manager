@@ -179,11 +179,15 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_agreeOfferActionPerformed
 
     private void editStaffsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editStaffsButtonActionPerformed
-        new EditFormStaffFrame().setVisible(true);
+        EditFormStaffFrame editFormStaffFrame = new EditFormStaffFrame();
+        editFormStaffFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        editFormStaffFrame.setVisible(true);
     }//GEN-LAST:event_editStaffsButtonActionPerformed
 
     private void updateDayOffsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDayOffsButtonActionPerformed
-        new ViewHistoryOfStaffFrame().setVisible(true);
+        ViewHistoryOfStaffFrame viewHistoryOfStaffFrame = new ViewHistoryOfStaffFrame();
+        viewHistoryOfStaffFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        viewHistoryOfStaffFrame.setVisible(true);
     }//GEN-LAST:event_updateDayOffsButtonActionPerformed
 
     private void initData() {
