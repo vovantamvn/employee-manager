@@ -17,8 +17,9 @@ public class AdminController {
         return result != null;
     }
 
-    public void updateUser(int id, User user) {
-        repository.update(id, user);
+    public boolean updateUser(int id, User user) {
+        User result = repository.update(id, user);
+        return result != null;
     }
 
     public boolean deleteUser(int id) {
@@ -27,5 +28,9 @@ public class AdminController {
 
     public List<User> getAllUser() {
         return repository.getAll();
+    }
+
+    public User findUserByID(int id) {
+        return repository.findById(id);
     }
 }

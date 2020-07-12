@@ -46,7 +46,7 @@ public class UserRepositoryImp implements Repository<User> {
             return null;
         }
         
-        System.out.println(query);
+        //System.out.println(query);
 
         return obj;
     }

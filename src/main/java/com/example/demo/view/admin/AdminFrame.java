@@ -11,6 +11,12 @@ import com.example.demo.repository.UserRepositoryImp;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,15 +29,51 @@ public class AdminFrame extends javax.swing.JFrame {
      */
     private AdminController controller;
     private UserAdapter adapter;
+    private DefaultTableModel tableModel;
+    private int indexSelected = 0;
+    private int idSelected = 0;
 
     public AdminFrame() {
         initComponents();
         Repository<User> repository = new UserRepositoryImp();
         
         controller = new AdminController(repository);
-        adapter = new UserAdapter(controller.getAllUser());
-        System.out.println(controller.getAllUser());
-        listUser.setModel(adapter);    
+        tableModel = new DefaultTableModel();
+        tableUser.setModel(tableModel);
+        
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Họ tên");
+        tableModel.addColumn("Tuổi");
+        tableModel.addColumn("Giới tính");
+        tableModel.addColumn("Ngày sinh");
+        tableModel.addColumn("Bộ phận");
+        tableModel.addColumn("Email");
+        
+        ListSelectionModel listSelectionModel = tableUser.getSelectionModel();
+        listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listSelectionModel.addListSelectionListener( new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent arg0) {
+                int[] rows = tableUser.getSelectedRows();
+                
+                try {
+                    int id = (int) tableUser.getValueAt(rows[0], 0);
+                    
+                    User user = controller.findUserByID(id);
+                
+                    if(user != null) {
+                        indexSelected = rows[0];
+                        idSelected = id;
+                        setDataFromUser(user);
+                    }
+                
+                } catch(Exception e) {
+                    //
+                }
+            }
+        });
+        
+        initData();
     }
 
     /**
@@ -58,8 +100,6 @@ public class AdminFrame extends javax.swing.JFrame {
         createButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listUser = new javax.swing.JList<>();
         jLabel7 = new javax.swing.JLabel();
         departmentText = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -68,6 +108,9 @@ public class AdminFrame extends javax.swing.JFrame {
         genderCombobox = new javax.swing.JComboBox<>();
         roleCombobox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableUser = new javax.swing.JTable();
+        resetButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,13 +147,6 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        listUser.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listUser);
-
         jLabel7.setText("Bộ phận");
 
         jLabel8.setText("Ngày sinh");
@@ -125,14 +161,31 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jLabel10.setText("Chức vụ");
 
+        tableUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tableUser);
+
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,8 +221,11 @@ public class AdminFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,9 +264,10 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createButton)
                     .addComponent(updateButton)
-                    .addComponent(deleteButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton)
+                    .addComponent(resetButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -229,6 +286,10 @@ public class AdminFrame extends javax.swing.JFrame {
         deleteUser();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        clearData();
+    }//GEN-LAST:event_resetButtonActionPerformed
+
     private boolean checkData() {
         if(usernameText.getText().equals(""))
             return false;
@@ -243,9 +304,97 @@ public class AdminFrame extends javax.swing.JFrame {
     }
     
     private void createUser() {
+        User user = getDataToUser();
+
+        boolean result = (user != null) && controller.createUser(user);
+        
+        if(!result) {
+            JOptionPane.showMessageDialog(this, "Đã tạo thất bại");
+            return;
+        }
+        
+        JOptionPane.showMessageDialog(this, "Đã tạo thành công");
+        
+        List<User> users = controller.getAllUser();
+        int id = users.get(users.size() - 1).getId();
+        
+        tableModel.addRow(new Object[] {
+                id,
+                user.getName(),
+                user.getAge(),
+                (user.getGender() == 1)? "Nam" : "Nữ",
+                user.getDob().toString(),
+                user.getDepartment(),
+                user.getEmail()
+            });
+    }
+    
+    private void updateUser() {
+        User user = getDataToUser();
+        
+        boolean result = (user != null) && controller.updateUser(idSelected, user);
+        
+        if(!result) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            return;
+        }
+        
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        
+        tableModel.removeRow(indexSelected);
+        tableModel.insertRow(indexSelected, new Object[] {
+                idSelected,
+                user.getName(),
+                user.getAge(),
+                (user.getGender() == 1)? "Nam" : "Nữ",
+                user.getDob().toString(),
+                user.getDepartment(),
+                user.getEmail()
+            });
+    }
+
+    private void deleteUser() {
+        controller.deleteUser(idSelected);
+        
+        JOptionPane.showMessageDialog(this, "Xóa thành công");
+        
+        tableModel.removeRow(indexSelected);
+    }
+
+    private void initData() {
+        List<User> users = controller.getAllUser();
+        
+        for(int i=0; i<users.size(); i++) {
+            User user = users.get(i);
+            
+            tableModel.addRow(new Object[] {
+                user.getId(),
+                user.getName(),
+                user.getAge(),
+                (user.getGender() == 1)? "Nam" : "Nữ",
+                user.getDob().toString(),
+                user.getDepartment(),
+                user.getEmail()
+            });
+        }
+    }
+    
+    private void clearData() {
+        usernameText.setText("");
+        passwordText.setText("");
+        nameText.setText("");
+        addressText.setText("");
+        departmentText.setText("");
+        dobText.setText("");
+        ageText.setText("");
+        emailText.setText("");
+    }
+
+    private User getDataToUser() {
+        
         if(!checkData()) {
             JOptionPane.showMessageDialog(this, "Nhập đầy đủ các trường");
-            return;
+            return null;
         }
         
         User user = new User();
@@ -278,7 +427,7 @@ public class AdminFrame extends javax.swing.JFrame {
             user.setAge(age);
         }catch (Exception ex){
             JOptionPane.showMessageDialog(this, "Tuổi phải là số nguyên");
-            return;
+            return null;
         }
         
         try {
@@ -287,67 +436,36 @@ public class AdminFrame extends javax.swing.JFrame {
             user.setDob(dob);
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Nhập ngày theo định dạng năm-tháng-ngày");
-            return;
+            return null;
         }
-
-        boolean result = controller.createUser(user);
-        if(result) {
-            JOptionPane.showMessageDialog(this, "Đã tạo thành công");
-        } else {
-            JOptionPane.showMessageDialog(this, "Đã tạo thất bại");
-        }  
-    }
-
-    private void updateUser() {
-        if (userChoise == -1) {
-            return;
-        }
-
-//        User user = new User();
-//        user.setAddress(addressText.getText());
-//        user.setEmail(emailText.getText());
-//        user.setName(nameText.getText());
-//        user.setUsername(usernameText.getText());
-//        user.setPassword(passwordText.getText());
-//
-//        try {
-//            int age = Integer.parseInt(ageText.getText());
-//            user.setAge(age);
-//        }catch (Exception ex){
-//            ex.printStackTrace();
-//        }
-
-        //controller.updateUser(userChoise, user);
-        refeshData();
-    }
-
-    private void deleteUser() {
-        if (userChoise == -1) {
-            return;
-        }
-
-        controller.deleteUser(userChoise);
-        refeshData();
-    }
-
-    private void refeshData() {
-        List<User> users = controller.getAllUser();
-        adapter.setUsers(users);
         
+        return user;
     }
     
-    private void clearData() {
-        usernameText.setText("");
-        passwordText.setText("");
-        nameText.setText("");
-        addressText.setText("");
-        departmentText.setText("");
-        dobText.setText("");
-        ageText.setText("");
-        emailText.setText("");
+    private void setDataFromUser(User user) {
+        usernameText.setText(user.getUsername());
+        passwordText.setText(user.getPassword());
+        nameText.setText(user.getName());
+        addressText.setText(user.getAddress());
+        departmentText.setText(user.getDepartment());
+        dobText.setText(user.getDob().toString());
+        ageText.setText(String.valueOf(user.getAge()));
+        emailText.setText(user.getEmail());
+        
+        genderCombobox.setSelectedIndex(user.getGender());
+        
+        int role = user.getRole();
+        
+        if(role == User.ROLE_ADMIN) {
+            roleCombobox.setSelectedIndex(2);
+        } else if(role == User.ROLE_MANAGER) {
+            roleCombobox.setSelectedIndex(1);
+        } else {
+            roleCombobox.setSelectedIndex(0);
+        }
     }
-
-    private int userChoise = -1;
+    
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressText;
     private javax.swing.JTextField ageText;
@@ -367,11 +485,12 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> listUser;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nameText;
     private javax.swing.JTextField passwordText;
+    private javax.swing.JButton resetButton;
     private javax.swing.JComboBox<String> roleCombobox;
+    private javax.swing.JTable tableUser;
     private javax.swing.JButton updateButton;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables

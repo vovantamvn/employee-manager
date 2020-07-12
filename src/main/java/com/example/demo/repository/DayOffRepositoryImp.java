@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.DayOff;
-import com.example.demo.model.User;
 import com.example.demo.utils.SQLServerConnectionProvideImp;
 
 import java.sql.Connection;
@@ -9,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DayOffRepositoryImp implements Repository<DayOff> {
@@ -25,19 +25,12 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
 
     @Override
     public DayOff create(DayOff obj) {
-        String status = "null";
 
-        if (obj.getStatus() == DayOff.Status.ALLOW) {
-            status = "1";
-        } else if (obj.getStatus() == DayOff.Status.REFUSE) {
-            status = "0";
-        }
-
-        String query = String.format("INSERT day_off values('%s', %f, N'%s', %s);",
+        String query = String.format("INSERT day_off values('%s', %f, N'%s', %d);",
             obj.getDate().toString(),
             obj.getNumberDay(),
             obj.getComment(),
-            status
+            obj.getStatus()
         );
 
         try(Statement statement = connection.createStatement()) {
@@ -54,26 +47,19 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
 
     @Override
     public DayOff update(int id, DayOff obj) {
-        String status = "null";
-
-        if (obj.getStatus() == DayOff.Status.ALLOW) {
-            status = "1";
-        } else if (obj.getStatus() == DayOff.Status.REFUSE) {
-            status = "0";
-        }
 
         String query = String.format("UPDATE day_off\n" +
                 "SET\n" +
                 "    date = '%s',\n" +
                 "    number = %f,\n" +
                 "    comment = N'%s',\n" +
-                "    status = %s\n" +
+                "    status = %d\n" +
                 "WHERE\n" +
                 "    id = %d;",
                 obj.getDate().toString(),
                 obj.getNumberDay(),
                 obj.getComment(),
-                status,
+                obj.getStatus(),
                 id);
 
         try(Statement statement = connection.createStatement()) {
@@ -108,13 +94,7 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
             dayOff.setDate(LocalDate.parse(resultSet.getString(2)));
             dayOff.setNumberDay(resultSet.getFloat(3));
             dayOff.setComment(resultSet.getString(4));
-            dayOff.setStatus(DayOff.Status.NULL);
-
-            try {
-
-            } catch (Exception ex) {
-
-            }
+            dayOff.setStatus(resultSet.getInt(5));
 
             return dayOff;
         } catch (Exception throwables) {
@@ -139,6 +119,34 @@ public class DayOffRepositoryImp implements Repository<DayOff> {
 
     @Override
     public List<DayOff> getAll() {
-        return null;
+        String query = String.format("SELECT \n" +
+                "    id,\n" +
+                "    date,\n" +
+                "    number,\n" +
+                "    comment,\n" +
+                "    status\n" +
+                "FROM day_off;");
+
+        List<DayOff> dayOffs = new ArrayList<>();
+
+        try(Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                DayOff dayOff = new DayOff();
+                dayOff.setId(resultSet.getInt(1));
+                dayOff.setDate(LocalDate.parse(resultSet.getString(2)));
+                dayOff.setNumberDay(resultSet.getFloat(3));
+                dayOff.setComment(resultSet.getString(4));
+                dayOff.setStatus(resultSet.getInt(5));
+
+                dayOffs.add(dayOff);
+            }
+
+        } catch (Exception throwables) {
+            throwables.printStackTrace();
+        }
+
+        return dayOffs;
     }
 }
