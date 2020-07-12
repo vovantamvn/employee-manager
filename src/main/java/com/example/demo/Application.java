@@ -8,6 +8,9 @@ import com.example.demo.repository.Repository;
 import com.example.demo.repository.UserDayOffRepositoryImp;
 import com.example.demo.repository.UserRepositoryImp;
 import com.example.demo.view.admin.AdminFrame;
+import com.example.demo.view.manager.EditFormStaffFrame;
+import com.example.demo.view.manager.ManagerFrame;
+import com.example.demo.view.manager.ViewHistoryOfStaffFrame;
 import java.time.LocalDate;
 
 
@@ -17,11 +20,6 @@ public class Application {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        UserDayOff userDayOff = new UserDayOff();
-        userDayOff.setUserId(2);
-        userDayOff.setDayOffId(2);
-        
-        UserDayOffRepositoryImp repositoryImp = new UserDayOffRepositoryImp();
-        System.out.println(repositoryImp.getAll());
+        new ViewHistoryOfStaffFrame().setVisible(true);
     }
 }

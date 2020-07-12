@@ -5,6 +5,16 @@
  */
 package com.example.demo.view.manager;
 
+import com.example.demo.controller.ManagerController;
+import com.example.demo.model.DayOff;
+import com.example.demo.model.UserDayOff;
+import com.example.demo.model.UserDayOffModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,6 +28,9 @@ public class ManagerFrame extends javax.swing.JFrame {
      */
     
     private DefaultTableModel tableModel;
+    private ManagerController controller;
+    private int idSelected = 0;
+    private int indexSelected = 0;
     
     public ManagerFrame() {
         initComponents();
@@ -25,11 +38,31 @@ public class ManagerFrame extends javax.swing.JFrame {
         tableModel = new DefaultTableModel();
         tableDayOff.setModel(tableModel);
         
+        controller = new ManagerController();
+        
         tableModel.addColumn("ID");
         tableModel.addColumn("Họ tên");
         tableModel.addColumn("Ngày nghỉ");
         tableModel.addColumn("Số ngày nghỉ");
         
+        ListSelectionModel listSelectionModel = tableDayOff.getSelectionModel();
+        listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listSelectionModel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent arg0) {
+                int[] rows = tableDayOff.getSelectedRows();
+                
+                try{
+                    idSelected = (int) tableModel.getValueAt(rows[0], 0);
+                    indexSelected = rows[0];
+                } catch(Exception e){
+                    
+                }
+                
+            }
+        });
+        
+        initData();
     }
 
     /**
@@ -124,11 +157,25 @@ public class ManagerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteOfferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOfferActionPerformed
-        // TODO add your handling code here:
+        boolean result = controller.setStatusOfOffer(idSelected, DayOff.REFUSE);
+        
+        if(result){
+            tableModel.removeRow(indexSelected);
+            JOptionPane.showMessageDialog(this, "Bạn đã chấp nhận thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn đã chấp nhận thất bại");
+        }
     }//GEN-LAST:event_deleteOfferActionPerformed
 
     private void agreeOfferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agreeOfferActionPerformed
-        // TODO add your handling code here:
+        boolean result = controller.setStatusOfOffer(idSelected, DayOff.ALLOW);
+        
+        if(result){
+            tableModel.removeRow(indexSelected);
+            JOptionPane.showMessageDialog(this, "Bạn đã chấp nhận thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn đã chấp nhận thất bại");
+        }
     }//GEN-LAST:event_agreeOfferActionPerformed
 
     private void editStaffsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editStaffsButtonActionPerformed
@@ -139,6 +186,19 @@ public class ManagerFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_updateDayOffsButtonActionPerformed
 
+    private void initData() {
+        List<UserDayOffModel> userDayOffs = controller.getUserDayOffModelWhereStatusEqualZero();
+        
+        for(UserDayOffModel item : userDayOffs) {
+            
+            tableModel.addRow(new Object[] {
+                item.getId(),
+                item.getName(),
+                item.getDate().toString(),
+                item.getNumberDayOff()
+            });
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agreeOffer;
