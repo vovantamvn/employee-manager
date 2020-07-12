@@ -2,23 +2,25 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.Repository;
+import com.example.demo.repository.UserRepositoryImp;
 
 import java.util.List;
 
 public class LoginController {
-    private Repository repository;
+    private Repository<User> repository;
 
-    public LoginController(Repository<User> userRepository){
-        this.repository = userRepository;
+    public LoginController(){
+        this.repository = new UserRepositoryImp();
     }
 
-    public boolean login(String username, String password){
+    public User login(String username, String password){
         List<User> users = repository.getAll();
         for (User user: users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)){
-                return true;
+                return user;
             }
         }
-        return false;
+        
+        return null;
     }
 }

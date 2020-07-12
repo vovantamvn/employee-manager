@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.demo.view.manager;
+package com.example.demo.controller;
 
 import com.example.demo.model.DayOff;
 import com.example.demo.model.User;

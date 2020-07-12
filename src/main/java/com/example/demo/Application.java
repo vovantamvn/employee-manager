@@ -14,12 +14,12 @@ import com.example.demo.view.manager.ViewHistoryOfStaffFrame;
 import java.time.LocalDate;
 
 
-public class Application {
+public class Application{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        new ViewHistoryOfStaffFrame().setVisible(true);
+        new LoginFrame().setVisible(true);
     }
 }
