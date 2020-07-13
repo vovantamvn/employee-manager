@@ -1,16 +1,16 @@
 package com.example.demo.controller;
 
+import com.example.demo.RepositoryProvide;
 import com.example.demo.model.User;
 import com.example.demo.repository.Repository;
-import com.example.demo.repository.UserRepositoryImp;
 
 import java.util.List;
 
 public class LoginController {
-    private Repository<User> repository;
+    private final Repository<User> repository;
 
     public LoginController(){
-        this.repository = new UserRepositoryImp();
+        this.repository = RepositoryProvide.getUserRepository();
     }
 
     public User login(String username, String password){

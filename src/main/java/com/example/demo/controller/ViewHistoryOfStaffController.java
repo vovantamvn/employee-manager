@@ -10,10 +10,7 @@ import com.example.demo.model.DayOff;
 import com.example.demo.model.User;
 import com.example.demo.model.UserDayOff;
 import com.example.demo.model.UserDayOffModel;
-import com.example.demo.repository.DayOffRepositoryImp;
 import com.example.demo.repository.Repository;
-import com.example.demo.repository.UserDayOffRepositoryImp;
-import com.example.demo.repository.UserRepositoryImp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +19,9 @@ import java.util.List;
  * @author vovantam
  */
 public class ViewHistoryOfStaffController {
-    private Repository<User> userRepository;
-    private Repository<DayOff> dayOffRepository;
-    private Repository<UserDayOff> userDayOffRepository;
+    private final Repository<User> userRepository;
+    private final Repository<DayOff> dayOffRepository;
+    private final Repository<UserDayOff> userDayOffRepository;
     
     public ViewHistoryOfStaffController() {
         userRepository = RepositoryProvide.getUserRepository();
