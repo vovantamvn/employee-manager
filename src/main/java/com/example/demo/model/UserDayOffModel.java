@@ -7,10 +7,6 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author vovantam
- */
 public class UserDayOffModel {
     private int id;
     private String name;

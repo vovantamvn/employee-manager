@@ -61,6 +61,11 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="deleteOffer">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+          <FontInfo relative="true">
+            <Font component="deleteOffer" property="font" relativeSize="true" size="0"/>
+          </FontInfo>
+        </Property>
         <Property name="text" type="java.lang.String" value="X&#xf3;a &#x111;&#x1ec1; xu&#x1ea5;t"/>
       </Properties>
       <Events>
@@ -69,6 +74,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="editStaffsButton">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+          <FontInfo relative="true">
+            <Font component="editStaffsButton" property="font" relativeSize="true" size="0"/>
+          </FontInfo>
+        </Property>
         <Property name="text" type="java.lang.String" value="Ch&#x1ec9;nh s&#x1eed;a nh&#xe2;n vi&#xea;n"/>
       </Properties>
       <Events>
@@ -77,6 +87,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="agreeOffer">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+          <FontInfo relative="true">
+            <Font component="agreeOffer" property="font" relativeSize="true" size="0"/>
+          </FontInfo>
+        </Property>
         <Property name="text" type="java.lang.String" value="Ch&#x1ea5;p nh&#x1ead;n"/>
       </Properties>
       <Events>
@@ -107,6 +122,11 @@
     </Container>
     <Component class="javax.swing.JButton" name="updateDayOffsButton">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+          <FontInfo relative="true">
+            <Font component="updateDayOffsButton" property="font" relativeSize="true" size="0"/>
+          </FontInfo>
+        </Property>
         <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t ng&#xe0;y ngh&#x1ec9;"/>
       </Properties>
       <Events>

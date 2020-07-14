@@ -14,10 +14,7 @@ import com.example.demo.repository.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author vovantam
- */
+
 public class ViewHistoryOfStaffController {
     private final Repository<User> userRepository;
     private final Repository<DayOff> dayOffRepository;

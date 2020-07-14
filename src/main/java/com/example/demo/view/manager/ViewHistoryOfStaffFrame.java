@@ -15,10 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author vovantam
- */
+
 public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
 
     /**
@@ -89,8 +86,10 @@ public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableHistory);
 
+        jLabel1.setFont(jLabel1.getFont());
         jLabel1.setText("Nhập tin nhắn");
 
+        sendButton.setFont(sendButton.getFont());
         sendButton.setText("Gửi tin nhắn");
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
