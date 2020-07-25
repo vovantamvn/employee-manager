@@ -5,52 +5,97 @@
  */
 package com.example.demo.controller;
 
+import com.example.demo.RepositoryProvide;
 import com.example.demo.model.DayOff;
 import com.example.demo.model.User;
-import com.example.demo.repository.DayOffRepositoryImp;
+import com.example.demo.model.UserDayOff;
 import com.example.demo.repository.Repository;
-import java.awt.Component;
-import java.sql.Date;
-import javax.swing.JOptionPane;
+import java.util.List;
 
-/**
- *
- * @author luongle
- */
 public class StaffController {
 
-    private Repository repository;
-    private DayOffRepositoryImp dayOffRepositoryImp;
-    private LoginController loginController;
-
-    public StaffController(Repository<User> repository) {
-        this.repository = repository;
-    }
+    private final Repository<UserDayOff> userDayOffRepository;
+    private final Repository<DayOff> dayOffRepository;
+    private final Repository<User> userRepository;
 
     public StaffController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        userRepository = RepositoryProvide.getUserRepository();
+        dayOffRepository = RepositoryProvide.getDayOffRepository();
+        userDayOffRepository = RepositoryProvide.getUserDayOffRepository();
     }
 
-    public void thaydoimatkhau(String pas1, String pas2) {
-        if (pas1.equals(pas2)) {
+    public boolean changPassword(User user, String p1) {
+        user.setPassword(p1);
+        
+        return userRepository.update(user.getId(), user);
+    }
+
+    public float getDayOff(int userId) {
+        float sum = 0;
+        
+        List<UserDayOff> userDayOffs = userDayOffRepository.getAll();
+        
+        for(UserDayOff userDayOff : userDayOffs){
+            if(userDayOff.getUserId() != userId){
+                continue;
+            }
             
-            User user = new User();
-            int id = user.getId();
-            user.setPassword(pas2);
-            repository.update(id, user);
-            JOptionPane.showMessageDialog(null, "Thành công");
-
-        } else {
-
-            JOptionPane.showMessageDialog(null, "Mật khẩu xác nhận không đúng ");
-
+            DayOff dayOff = dayOffRepository.findById(userDayOff.getDayOffId());
+            
+            if(dayOff.getStatus() == DayOff.ALLOW){
+                sum += dayOff.getNumberDay();
+            }
         }
+        
+        return sum;
+    }
+    
+    public boolean submitDayOff(int id, DayOff dayOff) {
+        dayOff.setStatus(DayOff.NULL);
+        
+        DayOff result = dayOffRepository.create(dayOff);
+        
+        if(result == null) {
+            return false;
+        }
+        
+        
+        List<DayOff> dayOffs = dayOffRepository.getAll();
+        int idDayOff = dayOffs.get(dayOffs.size() - 1).getId();
+        
+        UserDayOff userDayOff = new UserDayOff();
+        userDayOff.setUserId(id);
+        userDayOff.setDayOffId(idDayOff);
+        
+        return userDayOffRepository.create(userDayOff) != null;
     }
 
-    public void dexuatnghi(Date ngay) {
+    public boolean cancelDayOff(int id) {
+        UserDayOff userDayOff = getLastDayOffOfUser(id);
         
-        DayOff dayOff = new DayOff();
+        if(userDayOff == null){
+            return false;
+        }
         
-        dayOffRepositoryImp.create(dayOff);
+        DayOff dayOff = dayOffRepository.findById(userDayOff.getDayOffId());
+        
+        dayOff.setStatus(DayOff.REFUSE);
+        
+        return dayOffRepository.update(dayOff.getId(), dayOff);
+    }
+    
+    private UserDayOff getLastDayOffOfUser(int id) {
+        List<UserDayOff> userDayOffs = userDayOffRepository.getAll();
+        
+        int lastIndex = userDayOffs.size() - 1;
+        
+        for(int i = lastIndex; i>=0; i++){
+            
+            if (userDayOffs.get(i).getUserId() == id) {
+                return userDayOffs.get(i);
+            }
+        }
+        
+        return null;
     }
 }

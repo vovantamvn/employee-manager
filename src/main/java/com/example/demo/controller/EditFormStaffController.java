@@ -5,21 +5,18 @@
  */
 package com.example.demo.controller;
 
+import com.example.demo.RepositoryProvide;
 import com.example.demo.repository.Repository;
-import com.example.demo.repository.UserRepositoryImp;
 import java.util.List;
 import com.example.demo.model.User;
 import java.util.ArrayList;
 
-/**
- *
- * @author vovantam
- */
+
 public class EditFormStaffController {
-    private Repository<User> repository;
+    private final Repository<User> repository;
     
     public EditFormStaffController(){
-        repository = new UserRepositoryImp();
+        repository = RepositoryProvide.getUserRepository();
     }
     
     public List<User> getAllStaff() {

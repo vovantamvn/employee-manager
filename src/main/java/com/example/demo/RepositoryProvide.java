@@ -15,10 +15,7 @@ import com.example.demo.repository.UserRepositoryImp;
 import com.example.demo.utils.SQLServerConnectionProvideImp;
 import java.sql.Connection;
 
-/**
- *
- * @author vovantam
- */
+
 public class RepositoryProvide {
     private static final Connection connection;
     private static final Repository<User> userRepository;

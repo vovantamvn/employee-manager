@@ -15,10 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author vovantam
- */
+
 public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
 
     /**
@@ -28,6 +25,7 @@ public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
     private ViewHistoryOfStaffController controller;
     private DefaultTableModel tableModel;
     private int idSelected = 0;
+    private int indexSelected = 0;
     
     public ViewHistoryOfStaffFrame() {
         initComponents();
@@ -51,6 +49,7 @@ public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
                 int[] rows = tableHistory.getSelectedRows();
                 try {
                     idSelected = (int) tableHistory.getValueAt(rows[0], 0);
+                    indexSelected = rows[0];
                 } catch(Exception e){
                     
                 }
@@ -87,8 +86,10 @@ public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableHistory);
 
+        jLabel1.setFont(jLabel1.getFont());
         jLabel1.setText("Nhập tin nhắn");
 
+        sendButton.setFont(sendButton.getFont());
         sendButton.setText("Gửi tin nhắn");
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,16 +131,20 @@ public class ViewHistoryOfStaffFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        // TODO add your handling code here:
+        sendMessager();
     }//GEN-LAST:event_sendButtonActionPerformed
     
     private void sendMessager() {
         String messenger = messengerText.getText().trim();
         if (messenger.equals("")) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
-        } else {
-            controller.sendMessager(idSelected, messenger);
+            return;
         }
+        
+        controller.sendMessager(idSelected, messenger);
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        
+        tableModel.setValueAt(messenger, indexSelected, 4);
     }
     
     private void initData() {

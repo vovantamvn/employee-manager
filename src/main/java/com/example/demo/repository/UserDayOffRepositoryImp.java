@@ -14,10 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author vovantam
- */
+
 public class UserDayOffRepositoryImp implements Repository<UserDayOff>{
     private Connection connection;
     

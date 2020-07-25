@@ -7,15 +7,12 @@ package com.example.demo;
 
 import com.example.demo.controller.LoginController;
 import com.example.demo.model.User;
-import com.example.demo.view.StaffFrame;
+import com.example.demo.view.employee.StaffFrame;
 import com.example.demo.view.admin.AdminFrame;
 import com.example.demo.view.manager.ManagerFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author vovantam
- */
+
 public class LoginFrame extends javax.swing.JFrame {
 
     /**
@@ -47,10 +44,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(jLabel1.getFont());
         jLabel1.setText("Tên đăng nhập");
 
+        jLabel2.setFont(jLabel2.getFont());
         jLabel2.setText("Mật khẩu");
 
+        loginButton.setFont(loginButton.getFont());
         loginButton.setText("Đăng nhập");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

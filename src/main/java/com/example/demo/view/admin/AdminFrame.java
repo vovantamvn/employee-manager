@@ -5,6 +5,7 @@
  */
 package com.example.demo.view.admin;
 
+import com.example.demo.controller.AdminController;
 import com.example.demo.model.User;
 import com.example.demo.repository.Repository;
 import com.example.demo.repository.UserRepositoryImp;
@@ -16,10 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author vovantam
- */
+
 public class AdminFrame extends javax.swing.JFrame {
 
     /**
@@ -111,18 +109,24 @@ public class AdminFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(jLabel1.getFont());
         jLabel1.setText("Họ tên");
 
+        jLabel2.setFont(jLabel2.getFont());
         jLabel2.setText("Tuổi");
 
+        jLabel3.setFont(jLabel3.getFont());
         jLabel3.setText("Địa chỉ");
 
+        jLabel4.setFont(jLabel4.getFont());
         jLabel4.setText("Tên ĐN");
 
         jLabel5.setText("Email");
 
+        jLabel6.setFont(jLabel6.getFont());
         jLabel6.setText("Mật khẩu");
 
+        createButton.setFont(createButton.getFont());
         createButton.setText("Tạo");
         createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +134,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        updateButton.setFont(updateButton.getFont());
         updateButton.setText("Cập nhật");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +142,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        deleteButton.setFont(deleteButton.getFont());
         deleteButton.setText("Xóa");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,20 +150,26 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(jLabel7.getFont());
         jLabel7.setText("Bộ phận");
 
+        jLabel8.setFont(jLabel8.getFont());
         jLabel8.setText("Ngày sinh");
 
         dobText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-mm-dd"))));
 
+        jLabel9.setFont(jLabel9.getFont());
         jLabel9.setText("Giới tính");
 
         genderCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nữ", "Nam" }));
 
+        roleCombobox.setFont(roleCombobox.getFont());
         roleCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Quản lý", "Admin" }));
 
+        jLabel10.setFont(jLabel10.getFont());
         jLabel10.setText("Chức vụ");
 
+        tableUser.setFont(tableUser.getFont());
         tableUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -168,6 +180,7 @@ public class AdminFrame extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tableUser);
 
+        resetButton.setFont(resetButton.getFont());
         resetButton.setText("Reset");
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

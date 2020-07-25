@@ -17,10 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author vovantam
- */
+
 public class ManagerFrame extends javax.swing.JFrame {
 
     /**
@@ -83,6 +80,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        deleteOffer.setFont(deleteOffer.getFont());
         deleteOffer.setText("Xóa đề xuất");
         deleteOffer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +88,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
+        editStaffsButton.setFont(editStaffsButton.getFont());
         editStaffsButton.setText("Chỉnh sửa nhân viên");
         editStaffsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +96,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
+        agreeOffer.setFont(agreeOffer.getFont());
         agreeOffer.setText("Chấp nhận");
         agreeOffer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +114,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableDayOff);
 
+        updateDayOffsButton.setFont(updateDayOffsButton.getFont());
         updateDayOffsButton.setText("Cập nhật ngày nghỉ");
         updateDayOffsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

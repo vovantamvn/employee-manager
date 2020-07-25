@@ -1,4 +1,4 @@
-package com.example.demo.view.admin;
+package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.Repository;

@@ -5,10 +5,7 @@
  */
 package com.example.demo.model;
 
-/**
- *
- * @author vovantam
- */
+
 public class UserDayOff {
     private int id;
     private int userId;
